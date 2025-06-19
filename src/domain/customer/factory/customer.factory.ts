@@ -10,6 +10,7 @@ export default class CustomerFactory {
   public static createWithAddress(name: string, address: Address): Customer {
     const customer = new Customer(uuid(), name);
     customer.changeAddress(address);
+    customer.activate();
     return customer;
   }
 }
