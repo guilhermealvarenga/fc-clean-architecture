@@ -5,8 +5,21 @@
 
 export default {
   transform: {
-    "^.+\.(t|j)sx?$": ["@swc/jest"],
-    
+    "^.+\.(t|j)sx?$": ["@swc/jest", {
+      jsc: {
+        parser: {
+          syntax: "typescript",
+          decorators: true,
+          tsx: true
+        },
+        target: "es2020",
+        keepClassNames: true,
+        transform: {
+          legacyDecorator: true,
+          decoratorMetadata: true
+        }
+      }
+    }]
   },
   // All imported modules in your tests should be mocked automatically
   // automock: false,
