@@ -17,14 +17,6 @@ export default class UpdateCustomerUseCase {
   ): Promise<OutputUpdateCustomerDto> {
     const customer = await this.customerRepository.find(input.id);
 
-    if (!input.name) {
-      throw new Error("Name is required");
-    }
-
-    if (!input.address.street) {
-      throw new Error("Street is required");
-    }
-
     customer.changeName(input.name);
     customer.changeAddress(
       new Address(
@@ -35,10 +27,6 @@ export default class UpdateCustomerUseCase {
       )
     );
 
-    if (!customer.isActive()) {
-      customer.activate();
-    }
-
     await this.customerRepository.update(customer);
 
     return {
@@ -46,9 +34,9 @@ export default class UpdateCustomerUseCase {
       name: customer.name,
       address: {
         street: customer.Address.street,
-        city: customer.Address.city,
         number: customer.Address.number,
         zip: customer.Address.zip,
+        city: customer.Address.city,
       },
     };
   }

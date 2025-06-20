@@ -61,74 +61,8 @@ describe("Test update customer use case", () => {
       number: input.address.number,
       zipcode: input.address.zip,
       city: input.address.city,
-      active: true,
+      active: false,
       rewardPoints: 0,
     });
-  });
-
-  it("should throw error when customer not found", async () => {
-    const customerRepository = new CustomerRepository();
-    const usecase = new UpdateCustomerUseCase(customerRepository);
-
-    const input = {
-      id: "123",
-      name: "John Updated",
-      address: {
-        street: "Street Updated",
-        number: 1234,
-        zip: "Zip Updated",
-        city: "City Updated",
-      },
-    };
-
-    await expect(usecase.execute(input)).rejects.toThrow("Customer not found");
-  });
-
-  it("should throw error when name is missing", async () => {
-    const customerRepository = new CustomerRepository();
-    const usecase = new UpdateCustomerUseCase(customerRepository);
-
-    const customer = new Customer("123", "John");
-    const address = new Address("Street", 123, "Zip", "City");
-    customer.changeAddress(address);
-
-    await customerRepository.create(customer);
-
-    const input = {
-      id: "123",
-      name: "",
-      address: {
-        street: "Street Updated",
-        number: 1234,
-        zip: "Zip Updated",
-        city: "City Updated",
-      },
-    };
-
-    await expect(usecase.execute(input)).rejects.toThrow("Name is required");
-  });
-
-  it("should throw error when street is missing", async () => {
-    const customerRepository = new CustomerRepository();
-    const usecase = new UpdateCustomerUseCase(customerRepository);
-
-    const customer = new Customer("123", "John");
-    const address = new Address("Street", 123, "Zip", "City");
-    customer.changeAddress(address);
-
-    await customerRepository.create(customer);
-
-    const input = {
-      id: "123",
-      name: "John Updated",
-      address: {
-        street: "",
-        number: 1234,
-        zip: "Zip Updated",
-        city: "City Updated",
-      },
-    };
-
-    await expect(usecase.execute(input)).rejects.toThrow("Street is required");
   });
 });

@@ -61,7 +61,7 @@ describe("Test create customer use case", () => {
       number: input.address.number,
       zipcode: input.address.zip,
       city: input.address.city,
-      active: true,
+      active: false,
       rewardPoints: 0,
     });
   });

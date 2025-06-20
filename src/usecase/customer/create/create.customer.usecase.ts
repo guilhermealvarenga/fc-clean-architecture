@@ -27,7 +27,6 @@ export default class CreateCustomerUseCase {
       )
     );
 
-    customer.activate();
     await this.customerRepository.create(customer);
 
     return {
