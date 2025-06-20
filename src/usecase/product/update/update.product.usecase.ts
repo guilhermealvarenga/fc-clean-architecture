@@ -18,6 +18,10 @@ export default class UpdateProductUseCase {
     product.changeName(input.name);
     product.changePrice(input.price);
 
+    if (product.notification.hasErrors()) {
+      throw new Error(product.notification.messages());
+    }
+
     await this.productRepository.update(product);
 
     return {
