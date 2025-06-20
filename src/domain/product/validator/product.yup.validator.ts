@@ -6,6 +6,7 @@ export default class ProductYupValidator
   implements ValidatorInterface<ProductInterface>
 {
   validate(entity: ProductInterface): void {
+    entity.notification.clearErrors();
     try {
       yup
         .object()

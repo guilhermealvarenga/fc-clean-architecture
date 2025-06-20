@@ -75,4 +75,23 @@ describe("Product unit tests", () => {
       message: "Price must be greater than zero"
     }]);
   });
+
+  it("should accumulate errors", () => {
+    const product = new Product("123", "Product 1", 100);
+    product.changeName("");
+    product.changePrice(-1);
+    const notification = product.notification;
+    expect(notification.hasErrors()).toBe(true);
+    
+    const errors = notification.getErrors();
+    expect(errors).toHaveLength(2);
+    expect(errors).toContainEqual({
+      context: "product",
+      message: "Name is required"
+    });
+    expect(errors).toContainEqual({
+      context: "product",
+      message: "Price must be greater than zero"
+    });
+  });
 });
